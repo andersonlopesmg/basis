@@ -1,4 +1,5 @@
 ﻿using Basis.Store.Domain.Catalogo.ValueObjects;
+using Basis.Store.Domain.Shared;
 
 namespace Basis.Store.Domain.Catalogo.Entities
 {
@@ -10,7 +11,7 @@ namespace Basis.Store.Domain.Catalogo.Entities
         private Autor(string nomeAutor)
         {
             if (string.IsNullOrWhiteSpace(nomeAutor))
-                throw new ArgumentNullException(nameof(nomeAutor));
+                throw new BusinessValidationException("Nome do autor inválido");
 
             this.NomeAutor = new NomeAutor(nomeAutor);
         }
@@ -23,7 +24,7 @@ namespace Basis.Store.Domain.Catalogo.Entities
         public static Autor Restaurar(int codigo, string nomeAutor)
         {
             if (codigo <= 0)
-                throw new ArgumentNullException("Código do autor é inválido", nameof(codigo));
+                throw new BusinessValidationException("Código do autor é inválido");
 
             var autor = new Autor(nomeAutor);
             autor.Codigo = codigo;

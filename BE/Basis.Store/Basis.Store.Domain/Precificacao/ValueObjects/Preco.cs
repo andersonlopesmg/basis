@@ -1,4 +1,6 @@
-﻿namespace Basis.Store.Domain.Precificacao.ValueObjects
+﻿using Basis.Store.Domain.Shared;
+
+namespace Basis.Store.Domain.Precificacao.ValueObjects
 {
     public record Preco
     {
@@ -7,7 +9,7 @@
         {
             if (valor < 0)
             {
-                throw new ArgumentException("O preço não pode ser negativo.", nameof(valor));
+                throw new BusinessValidationException("O preço não pode ser negativo");
             }
             Valor = valor;
         }

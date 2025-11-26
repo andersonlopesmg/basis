@@ -1,5 +1,6 @@
 ﻿using Basis.Store.Domain.Catalogo.ValueObjects;
 using Basis.Store.Domain.Precificacao.ValueObjects;
+using Basis.Store.Domain.Shared;
 
 namespace Basis.Store.Domain.Catalogo.Entities
 {
@@ -13,7 +14,7 @@ namespace Basis.Store.Domain.Catalogo.Entities
         {
             if (edicao <= 0)
             {
-                throw new ArgumentException("Edição deve ser maior que zero.", nameof(edicao));
+                throw new BusinessValidationException("Edição deve ser maior que zero");
             }
 
             return new Livro

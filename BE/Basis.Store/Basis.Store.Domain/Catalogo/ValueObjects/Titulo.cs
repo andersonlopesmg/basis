@@ -1,4 +1,6 @@
-﻿namespace Basis.Store.Domain.Catalogo.ValueObjects
+﻿using Basis.Store.Domain.Shared;
+
+namespace Basis.Store.Domain.Catalogo.ValueObjects
 {
     public record Titulo
     {
@@ -8,11 +10,11 @@
         {
             if (string.IsNullOrWhiteSpace(valor))
             {
-                throw new ArgumentException("O título não pode ser vazio.", nameof(valor));
+                throw new BusinessValidationException("O título não pode ser vazio");
             }
             if (valor.Length > 100)
             {
-                throw new ArgumentException("O título não pode exceder 100 caracteres.", nameof(valor));
+                throw new BusinessValidationException("O título não pode exceder 100 caracteres");
             }
 
             Valor = valor;
