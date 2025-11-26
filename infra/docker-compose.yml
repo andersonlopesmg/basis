@@ -10,9 +10,8 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Developer"
-      SA_PASSWORD: SA@1234
+      SA_PASSWORD: "BasisDeveloper2025!"
     volumes:
-      - ./sql-init/init.sql:/docker-entrypoint-initdb.d/init.sql
       - sql_data:/var/opt/mssql
 
   redis:
