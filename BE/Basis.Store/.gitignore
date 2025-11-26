@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Basis.Store.API/bin
+/Basis.Store.API/obj
+*.user
+/Basis.Store.Application/bin
+/Basis.Store.Application/obj
+/Basis.Store.Domain/bin
+/Basis.Store.Domain/obj
+/Basis.Store.Infrastructure/bin
+/Basis.Store.Infrastructure/obj
