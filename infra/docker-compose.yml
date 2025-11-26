@@ -1,11 +1,10 @@
-version: '3.8'
-name: basis-store-infra
+name: basis-infra
 
 
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: basis-sqlserver
     ports:
       - "1433:1433"
     environment:
@@ -18,13 +17,13 @@ services:
 
   redis:
     image: redis:7
-    container_name: redis
+    container_name: basis-redis
     ports:
       - "6379:6379"
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.0
-    container_name: zookeeper
+    container_name: basis-zookeeper
     ports:
       - "2181:2181"
     environment:
@@ -33,7 +32,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:7.4.0
-    container_name: kafka
+    container_name: basis-kafka
     depends_on:
       - zookeeper
     ports:
@@ -52,7 +51,7 @@ services:
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
-    container_name: elasticsearch
+    container_name: basis-elasticsearch
     environment:
       discovery.type: single-node
       xpack.security.enabled: "false"
@@ -64,7 +63,7 @@ services:
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.7.1
-    container_name: kibana
+    container_name: basis-kibana
     depends_on:
       - elasticsearch
     ports:
@@ -76,7 +75,7 @@ services:
 
   kong:
     image: kong:latest
-    container_name: kong-gateway
+    container_name: basis-kong-gateway
     environment:
       KONG_DATABASE: "off"
       KONG_DECLARATIVE_CONFIG: "/etc/kong/kong.yml"
@@ -100,7 +99,7 @@ services:
   # --- 4. PILAR DE MÉTRICAS (PROMETHEUS + GRAFANA) ---
   prometheus:
     image: prom/prometheus:v2.47.0
-    container_name: prometheus
+    container_name: basis-prometheus
     ports:
       - "9090:9090"
     volumes:
@@ -112,7 +111,7 @@ services:
 
   grafana:
     image: grafana/grafana-oss:10.1.5
-    container_name: grafana
+    container_name: basis-grafana
     ports:
       - "3000:3000"
     volumes:
