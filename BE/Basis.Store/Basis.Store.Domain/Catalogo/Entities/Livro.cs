@@ -1,6 +1,6 @@
 ﻿using Basis.Store.Domain.Catalogo.ValueObjects;
 using Basis.Store.Domain.Precificacao.ValueObjects;
-using Basis.Store.Domain.Shared;
+using Basis.Store.Domain.Common;
 
 namespace Basis.Store.Domain.Catalogo.Entities
 {

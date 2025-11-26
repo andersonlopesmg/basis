@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Basis.Store.Infrastructure\Basis.Store.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Basis.Store.Domain.Shared
+﻿namespace Basis.Store.Domain.Common
 {
     public class BusinessValidationException : Exception
     {

@@ -1,4 +1,4 @@
-﻿using Basis.Store.Domain.Shared;
+﻿using Basis.Store.Domain.Common;
 
 namespace Basis.Store.Domain.Precificacao.ValueObjects
 {
