@@ -12,9 +12,10 @@ namespace Basis.Store.Domain.Catalogo.ValueObjects
             {
                 throw new BusinessValidationException("O título não pode ser vazio");
             }
-            if (valor.Length > 100)
+
+            if (valor.Length < 3 && valor.Length > 40)
             {
-                throw new BusinessValidationException("O título não pode exceder 100 caracteres");
+                throw new BusinessValidationException("O título deve ter entre 3 e 40 caracteres");
             }
 
             Valor = valor;

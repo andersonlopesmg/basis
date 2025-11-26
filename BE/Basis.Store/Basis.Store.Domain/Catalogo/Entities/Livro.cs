@@ -6,26 +6,43 @@ namespace Basis.Store.Domain.Catalogo.Entities
 {
     public class Livro
     {
-        private Livro()
+        private Livro(string titulo, string editora, int edicao, int anoPublicacao, decimal precoBaseVenda)
         {
-        }
+            if(editora.Length > 40)
+            {
+                throw new BusinessValidationException("Editora deve ter no máximo 40 caracteres");
+            }
 
-        public static Livro Criar(string titulo, string editora, int edicao, int anoPublicacao, decimal precoBaseVenda)
-        {
             if (edicao <= 0)
             {
                 throw new BusinessValidationException("Edição deve ser maior que zero");
             }
 
-            return new Livro
-            {
-                Titulo = new Titulo(titulo),
-                Editora = editora,
-                Edicao = edicao,
-                AnoPublicacao = anoPublicacao,
-                PrecoBaseVenda = new Preco(precoBaseVenda)
-            };
+            Titulo = new Titulo(titulo);
+            Editora = editora;
+            Edicao = edicao;
+            AnoPublicacao = anoPublicacao;
+            PrecoBaseVenda = new Preco(precoBaseVenda);
         }
+
+        public static Livro Criar(string titulo, string editora, int edicao, int anoPublicacao, decimal precoBaseVenda)
+        {
+            return new Livro(titulo, editora, edicao, anoPublicacao, precoBaseVenda);
+
+        }
+
+        public static Livro Restaurar(int id, string titulo, string editora, int edicao, int anoPublicacao, decimal precoBaseVenda)
+        {
+            if (id <= 0)
+            {
+                throw new BusinessValidationException("Id do livro é inválido");
+            }
+
+            var livro = new Livro(titulo, editora, edicao, anoPublicacao, precoBaseVenda);
+            livro.Id = id;
+            return livro;
+        }
+
         public int Id { get; private set; }
         public Titulo Titulo { get; private set; } = null!;
         public string Editora { get; private set; } = null!;
