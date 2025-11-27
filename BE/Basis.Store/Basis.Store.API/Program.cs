@@ -1,3 +1,4 @@
+using Basis.Store.API.IoC;
 using Basis.Store.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddApiServicesIoC();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 
