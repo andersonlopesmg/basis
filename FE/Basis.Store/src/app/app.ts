@@ -1,12 +1,23 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { setTheme } from 'ngx-bootstrap/utils';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  standalone: true,
+  
 })
 export class App {
   protected readonly title = signal('Basis.Store');
+
+  
+  constructor() {
+    console.log('App component initialized'); 
+    setTheme('bs5');
+    
+  }
 }

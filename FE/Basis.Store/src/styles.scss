@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+ @use "bootstrap/scss/functions";
+ @use "bootstrap/scss/mixins";
+
+
+@use "bootstrap/scss/bootstrap";
+
+    body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #f8f9fa;
+    }   
