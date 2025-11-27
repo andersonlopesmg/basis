@@ -8,7 +8,7 @@ namespace Basis.Store.Domain.Catalogo.Entities
     {
         private Livro(string titulo, string editora, int edicao, int anoPublicacao, decimal precoBaseVenda)
         {
-            if(editora.Length > 40)
+            if(editora.Length < 40)
             {
                 throw new BusinessValidationException("Editora deve ter no máximo 40 caracteres");
             }

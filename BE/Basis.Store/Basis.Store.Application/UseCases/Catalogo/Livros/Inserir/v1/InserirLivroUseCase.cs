@@ -1,6 +1,8 @@
 ﻿using Basis.Store.Application.Common.Repositories;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1.DTOs;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1.Interfaces;
+using Basis.Store.Domain.Catalogo.Entities;
+using Basis.Store.Domain.Common;
 
 namespace Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1
 {
@@ -13,10 +15,11 @@ namespace Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1
             this.repository = repository;
         }
 
-        
+
         public Task<int> Execute(InserirLivroRequest request)
         {
-            throw new NotImplementedException();
+            Livro l = Livro.Criar(request.Titulo, request.Editora, request.Edicao.GetValueOrDefault(), request.AnoPublicacao.GetValueOrDefault(), request.PrecoBaseVenda.GetValueOrDefault());
+            throw new BusinessValidationException("Falha na validação de negócio");
         }
     }
 }
