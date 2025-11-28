@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { InserirLivro } from './inserir-livro/inserir-livro';
+import { InserirLivro } from './features/inserir-livro/inserir-livro';
+import { ListarLivros } from './features/listar-livros/listar-livros';
 
 
 export const routes: Routes = [
@@ -8,8 +9,12 @@ export const routes: Routes = [
         component: InserirLivro,
     },
     {
+        path: 'listar',
+        component: ListarLivros,
+    },
+    {
         path:'',
-        redirectTo: 'inserir',
+        redirectTo: 'listar',
         pathMatch: 'full'
     }
 ];
