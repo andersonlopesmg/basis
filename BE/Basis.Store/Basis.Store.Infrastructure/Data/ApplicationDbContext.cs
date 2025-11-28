@@ -1,4 +1,5 @@
-﻿using Basis.Store.Infrastructure.Entities.Catalogo;
+﻿using Basis.Store.Infrastructure.Data.Seeds;
+using Basis.Store.Infrastructure.Entities.Catalogo;
 using Microsoft.EntityFrameworkCore;
 
 namespace Basis.Store.Infrastructure.Data
@@ -23,6 +24,8 @@ namespace Basis.Store.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
             
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            CargaInicialGenerator.Seed(modelBuilder);
         }
     }
 }
