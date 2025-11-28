@@ -4,10 +4,12 @@ namespace Basis.Store.Domain.Catalogo.Entities
 {
     public class Assunto
     {
+        public int Codigo { get; private set; }
         public string Descricao { get; private set; } = string.Empty;
 
-        private Assunto()
+        private Assunto(string descricao)
         {
+            Descricao = descricao.Trim();
         }
 
 
@@ -22,11 +24,20 @@ namespace Basis.Store.Domain.Catalogo.Entities
                 throw new BusinessValidationException("A descrição do assunto não pode exceder 100 caracteres");
             }
 
+            return new Assunto(descricao);
+        }
 
-            return new Assunto
+        public static Assunto Restaurar(int codigo, string descricao)
+        {
+            if (codigo <= 0)
             {
-                Descricao = descricao.Trim()
-            };
+                throw new BusinessValidationException("Código do assunto é inválido");
+            }
+
+            var assunto = new Assunto(descricao);
+            assunto.Codigo = codigo;
+
+            return assunto;
         }
     }
 }

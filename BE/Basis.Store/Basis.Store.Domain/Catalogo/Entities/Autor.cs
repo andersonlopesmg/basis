@@ -10,14 +10,14 @@ namespace Basis.Store.Domain.Catalogo.Entities
 
         private Autor(string nomeAutor)
         {
-            if (string.IsNullOrWhiteSpace(nomeAutor))
-                throw new BusinessValidationException("Nome do autor inválido");
-
             this.NomeAutor = new NomeAutor(nomeAutor);
         }
 
         public static Autor Criar(string nomeAutor)
         {
+            if (string.IsNullOrWhiteSpace(nomeAutor))
+                throw new BusinessValidationException("Nome do autor inválido");
+
             return new Autor(nomeAutor);
         }
 
