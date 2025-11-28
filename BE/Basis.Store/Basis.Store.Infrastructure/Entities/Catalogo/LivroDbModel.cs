@@ -6,7 +6,7 @@
         public required string Titulo { get; set; }
         public required string Editora { get; set; }
         public int Edicao { get; set; }
-        public int AnoPublicacao { get; set; }
+        public required string AnoPublicacao { get; set; }
         public decimal PrecoBase { get; set; }
 
 
