@@ -1,0 +1,8 @@
+--Instalação global ferramenta execução do migration
+dotnet tool update --global dotnet-ef --version 8.0.*
+
+--Executar migra
+dotnet ef migrations add MigrationName --project Basis.Store.Infrastructure --startup-project Basis.Store.Api --output-dir Data/Migrations
+
+--Realizar a atualização da base de dados
+dotnet ef database update
