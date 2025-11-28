@@ -18,7 +18,8 @@ namespace Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1
 
         public Task<int> Execute(InserirLivroRequest request)
         {
-            Livro l = Livro.Criar(request.Titulo, request.Editora, request.Edicao.GetValueOrDefault(), request.AnoPublicacao.GetValueOrDefault(), request.PrecoBaseVenda.GetValueOrDefault());
+            Livro l = Livro.Criar(request.Titulo, request.Editora, request.Edicao, request.AnoPublicacao, request.PrecoBaseVenda);
+            
             throw new BusinessValidationException("Falha na validação de negócio");
         }
     }
