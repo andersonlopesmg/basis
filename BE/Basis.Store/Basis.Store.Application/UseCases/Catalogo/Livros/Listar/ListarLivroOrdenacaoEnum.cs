@@ -2,7 +2,8 @@
 {
     public enum ListarLivroOrdenacaoEnum
     {
-        Titulo = 1,
-        AnoPublicacao = 2,
+        Id = 1,
+        Titulo = 2,
+        AnoPublicacao = 3,
     }
 }

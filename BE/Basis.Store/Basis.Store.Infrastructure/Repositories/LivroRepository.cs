@@ -75,7 +75,9 @@ namespace Basis.Store.Infrastructure.Repositories
 
         private static Expression<Func<LivroDbModel, object>> ObterExpressaoOrdenacao(string? colunaOrdenacao)
         {
-            if (!Enum.TryParse<ListarLivroOrdenacaoEnum>(colunaOrdenacao, true, out ListarLivroOrdenacaoEnum coluna))
+            ListarLivroOrdenacaoEnum coluna = ListarLivroOrdenacaoEnum.Id;
+
+            if (!string.IsNullOrEmpty(colunaOrdenacao) && !Enum.TryParse<ListarLivroOrdenacaoEnum>(colunaOrdenacao, true, out coluna))
             {
                 throw new BusinessValidationException($"Coluna {colunaOrdenacao} inválida para ordenação");
             }

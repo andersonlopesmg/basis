@@ -25,7 +25,7 @@ namespace Basis.Store.Application.UseCases.Catalogo.Livros.Listar.Paginado.v1
                 Editora = livro.Editora,
                 Id = livro.Id,
                 PrecoBaseVenda = livro.PrecoBaseVenda,
-                Titulo = livro.Titulo,
+                Titulo = livro.Titulo.Valor,
             }).ToList();
 
             return new ResultadoPaginado<ListarLivrosPaginadoResponse>(response, livros.TotalDeItens, livros.PaginaAtual, livros.TamanhoDaPagina);
