@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Basis.Store.Domain\Basis.Store.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Constants\Paginacao\" />
+  </ItemGroup>
+
 </Project>

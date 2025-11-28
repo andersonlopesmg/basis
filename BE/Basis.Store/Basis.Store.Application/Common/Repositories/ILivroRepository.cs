@@ -1,4 +1,6 @@
-﻿using Basis.Store.Domain.Catalogo.Entities;
+﻿using Basis.Store.Application.Common.Paginacao;
+using Basis.Store.Application.UseCases.Catalogo.Livros.Listar;
+using Basis.Store.Domain.Catalogo.Entities;
 
 namespace Basis.Store.Application.Common.Repositories
 {
@@ -8,6 +10,8 @@ namespace Basis.Store.Application.Common.Repositories
 
         Task AtualizarAsync(Livro livro);
 
+        Task<ResultadoPaginado<Livro>> ConsultarPaginado(LivroFilter livroFilter, PaginacaoDto paginacao);
+        
         Task<Livro?> DetalharPorIdAsync(int id);
 
         Task<List<Livro>> ListarAsync();
