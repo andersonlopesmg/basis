@@ -5,6 +5,7 @@ import { QueryBuiderService } from '../../../../common/services/query-buider-ser
 import { ResultadoPaginado } from '../../../../common/dtos/ResultadoPaginado.dto';
 import { ListarLivrosPaginadoResponse } from '../features/listar-livros/dtos/ListarLivrosPaginadoResponse';
 import { environment } from '../../../../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,11 @@ export class LivrosService {
   listarPaginado(request: ListarLivrosPaginadoRequest){
     const params = this.queryBuilder.buildParams(request);
     return this.http.get<ResultadoPaginado<ListarLivrosPaginadoResponse>>(`${this.apiUrl}`, { params });
+  }
+
+  baixarRelatorioLivrosPorAutor(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/relatorios/livrosporautor` , {
+      responseType: 'blob'
+    });
   }
 }

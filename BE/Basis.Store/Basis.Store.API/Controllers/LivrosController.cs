@@ -58,7 +58,7 @@ namespace Basis.Store.API.Controllers
         #region Relatorios
 
         [HttpGet]
-        [Route("/relatorios/livrosporautor")]
+        [Route("relatorios/livrosporautor")]
         public async Task<IActionResult> GerarRelatorioLivrosPorAutor()
         {
             var response = await listarLivrosPorAutorUseCase.Execute();

@@ -5,37 +5,42 @@ import { Component, OnInit } from '@angular/core';
 import { ResultadoPaginado } from '../../../../../common/dtos/ResultadoPaginado.dto';
 import { ListarLivrosPaginadoResponse } from './dtos/ListarLivrosPaginadoResponse';
 import { ListarLivrosPaginadoRequest } from './dtos/ListarLivrosPaginadoRequest';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-listar-livros',
-  imports: [TableModule],
+  imports: [
+    CommonModule,
+    TableModule],
   templateUrl: './listar-livros.html',
   styleUrl: './listar-livros.scss',
 })
 export class ListarLivros implements OnInit {
-  
-  livros: ResultadoPaginado<ListarLivrosPaginadoResponse> = { 
-    itens: [], 
-    totalDeItens: 0, 
-    paginaAtual: 1, 
-    tamanhoDaPagina: 10, 
-    totalDePaginas: 0 
+
+  gerandoRelatorio = false;
+
+  livros: ResultadoPaginado<ListarLivrosPaginadoResponse> = {
+    itens: [],
+    totalDeItens: 0,
+    paginaAtual: 1,
+    tamanhoDaPagina: 10,
+    totalDePaginas: 0
   };
 
   request: ListarLivrosPaginadoRequest = {
-    Paginacao: { 
-      pagina: 1, 
-      tamanhoDaPagina: 10, 
+    Paginacao: {
+      pagina: 1,
+      tamanhoDaPagina: 10,
       colunaOrdenacao: 'Titulo',
-      orientacao: 'Asc' 
-    }, 
+      orientacao: 'Asc'
+    },
     Filtro: {}
   };
-  
-  
+
+
   constructor(
     private paginacaoService: PaginacaoService,
-    private livrosService: LivrosService) { 
+    private livrosService: LivrosService) {
   }
 
   ngOnInit(): void {
@@ -47,7 +52,7 @@ export class ListarLivros implements OnInit {
       next: (response) => {
         this.livros = response;
       },
-      error: (err) =>{
+      error: (err) => {
         console.error('Erro ao carregar livros:', err);
       }
     });
@@ -56,5 +61,32 @@ export class ListarLivros implements OnInit {
   onLazyLoad(event: any) {
     this.request.Paginacao = this.paginacaoService.updateRequestFromLazyLoad(event);
     this.carregarLivros();
+  }
+
+  baixarRelatorio() {
+    this.gerandoRelatorio = true;
+
+    this.livrosService.baixarRelatorioLivrosPorAutor().subscribe({
+      next: (blob: Blob) => {
+        this.downloadFile(blob, 'RelatorioLivrosPorAutor.pdf');
+        this.gerandoRelatorio = false;
+      },
+      error: (err) => {
+        console.error('Erro ao baixar relatório', err);
+        this.gerandoRelatorio = false;
+      }
+    });
+  }
+
+  // Método auxiliar para forçar o download no browser
+  private downloadFile(data: Blob, fileName: string) {
+    const url = window.URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   }
 }

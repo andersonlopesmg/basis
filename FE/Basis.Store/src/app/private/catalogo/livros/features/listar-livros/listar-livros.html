@@ -9,6 +9,29 @@
     [rowsPerPageOptions]="[5,10,20]"
     (onLazyLoad)="onLazyLoad($event)"
    stripedRows >
+   <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-between align-items-center">
+            
+            <h5 class="m-0 text-primary">
+                <i class="pi pi-list me-2"></i> Listagem de Livros
+            </h5>
+
+            <div>
+                <button 
+                    class="btn btn-primary btn-sm"
+                    (click)="baixarRelatorio()" 
+                    [disabled]="gerandoRelatorio">
+                    
+                    @if (gerandoRelatorio) {
+                        <span class="spinner-border spinner-border-sm me-1"></span>
+                    } @else {
+                        <i class="pi pi-file-pdf me-1"></i>
+                    }
+                    {{ gerandoRelatorio ? 'Gerando PDF...' : 'Baixar Relatório' }}
+                </button>
+            </div>
+        </div>
+    </ng-template>
     <ng-template #header>
         <tr>
             <th>Codigo</th>
