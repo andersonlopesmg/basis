@@ -1,5 +1,6 @@
 ﻿using Basis.Store.Application.Common.Paginacao;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar;
+using Basis.Store.Application.UseCases.Catalogo.Livros.Relatorios.PorAutor.DTOs;
 using Basis.Store.Domain.Catalogo.Entities;
 
 namespace Basis.Store.Application.Common.Repositories
@@ -15,5 +16,7 @@ namespace Basis.Store.Application.Common.Repositories
         Task<Livro?> DetalharPorIdAsync(int id);
 
         Task<List<Livro>> ListarAsync();
+
+        Task<List<LivrosPorAutorDto>> ListarLivrosPorAutor();
     }
 }

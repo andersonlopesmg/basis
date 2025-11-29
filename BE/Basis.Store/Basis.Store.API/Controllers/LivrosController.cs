@@ -1,8 +1,10 @@
 ﻿using Basis.Store.Application.Common.Interfaces;
+using Basis.Store.Application.Common.Services;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1.DTOs;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Inserir.v1.Interfaces;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar.Paginado.v1.DTOs;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar.Paginado.v1.Interfaces;
+using Basis.Store.Application.UseCases.Catalogo.Livros.Relatorios.PorAutor.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basis.Store.API.Controllers
@@ -13,16 +15,22 @@ namespace Basis.Store.API.Controllers
     {
         private readonly IInserirLivroUseCase inserirLivroUseCase;
         private readonly IListarLivrosPaginadoUseCase listarLivrosPaginadoUseCase;
+        private readonly IListarLivrosPorAutorUseCase listarLivrosPorAutorUseCase;
         private readonly ILoggerService loggerService;
+        private readonly IPdfReportService pdfReportService;
 
         public LivrosController(
             IInserirLivroUseCase inserirLivroUseCase,
             IListarLivrosPaginadoUseCase listarLivrosPaginadoUseCase,
-            ILoggerService loggerService)
+            IListarLivrosPorAutorUseCase listarLivrosPorAutorUseCase,
+            ILoggerService loggerService,
+            IPdfReportService pdfReportService)
         {
             this.inserirLivroUseCase = inserirLivroUseCase;
             this.listarLivrosPaginadoUseCase = listarLivrosPaginadoUseCase;
+            this.listarLivrosPorAutorUseCase = listarLivrosPorAutorUseCase;
             this.loggerService = loggerService;
+            this.pdfReportService = pdfReportService;
         }
 
 
@@ -44,5 +52,24 @@ namespace Basis.Store.API.Controllers
             return CreatedAtAction(nameof(inserirLivroUseCase), new { id = livroID }, request);
         }
 
+
+
+
+        #region Relatorios
+
+        [HttpGet]
+        [Route("/relatorios/livrosporautor")]
+        public async Task<IActionResult> GerarRelatorioLivrosPorAutor()
+        {
+            var response = await listarLivrosPorAutorUseCase.Execute();
+
+            //var pdfBytes = this.pdfReportService.GerarRelatorioPdf("Data/Reports/Catalogo/Livros/LivrosPorAutorReport.rdlc", "dsLivrosPorAutor", dados);
+
+            return File(response.RelatorioPdf, "application/pdf", "Relatorio_Livros_Por_Autor.pdf");
+        }
+
+
+
+        #endregion 
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Basis.Store.Infrastructure.Data.Configurations
+namespace Basis.Store.Infrastructure.Data.Configurations.Catalogo
 {
     public class LivroAssuntoDbModelConfiguration : IEntityTypeConfiguration<LivroAssuntoDbModel>
     {

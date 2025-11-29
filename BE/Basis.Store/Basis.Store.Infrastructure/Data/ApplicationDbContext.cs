@@ -1,5 +1,6 @@
 ﻿using Basis.Store.Infrastructure.Data.Seeds;
 using Basis.Store.Infrastructure.Entities.Catalogo;
+using Basis.Store.Infrastructure.Entities.Catalogo.Views;
 using Microsoft.EntityFrameworkCore;
 
 namespace Basis.Store.Infrastructure.Data
@@ -18,6 +19,7 @@ namespace Basis.Store.Infrastructure.Data
         public DbSet<LivroAutorDbModel> LivroAutor { get; set; }
         public DbSet<LivroDbModel> Livro { get; set; }
 
+        public DbSet<LivrosPorAutorViewModel> LivrosPorAutorViewModel { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

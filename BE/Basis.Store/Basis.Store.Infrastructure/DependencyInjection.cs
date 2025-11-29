@@ -1,8 +1,11 @@
 ﻿using Basis.Store.Application.Common.Interfaces;
 using Basis.Store.Application.Common.Repositories;
+using Basis.Store.Application.Common.Services;
+using Basis.Store.Application.Relatorios.Catalogo.Livros;
 using Basis.Store.Infrastructure.Data;
 using Basis.Store.Infrastructure.Repositories;
 using Basis.Store.Infrastructure.Services;
+using Basis.Store.Infrastructure.Services.Reports.Catalogo.LivrosPorAutor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +29,9 @@ public static class DependencyInjection
         ConfigureLogger(configuration);
 
 
+        services.AddScoped<IGerarRelatorioLivrosPorAutor, GerarRelatorioLivrosPorAutor>();
         services.AddSingleton<ILoggerService, SerilogLoggerService>();
+        services.AddScoped<IPdfReportService, RdlcReportService>();
 
         services.AddScoped<ILivroRepository, LivroRepository>();
 

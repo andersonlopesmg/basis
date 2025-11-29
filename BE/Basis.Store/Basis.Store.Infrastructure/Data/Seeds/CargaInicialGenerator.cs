@@ -41,14 +41,14 @@ namespace Basis.Store.Infrastructure.Data.Seeds
             }).ToArray();
             modelBuilder.Entity<LivroDbModel>().HasData(livrosSeedData);
 
-            // --- 4. SEED ASSOCIAÇÕES ALEATÓRIAS (Livro-Autor e Livro-Assunto) ---
+            //SEED ASSOCIAÇÕES ALEATÓRIAS (Livro-Autor e Livro-Assunto) 
 
             var livroAutorSeedList = new List<LivroAutorDbModel>();
             var livroAssuntoSeedList = new List<LivroAssuntoDbModel>();
 
             for (int i = 1; i <= totalLivros; i++)
             {
-                // A) Geração Aleatória de Autores (1 a 3 por livro)
+                //Geração Aleatória de Autores (1 a 3 por livro)
                 var autoresParaAssociar = autoresSeedData.Select(a => a.Id)
                     .OrderBy(x => random.Next())
                     .Take(random.Next(1, 4));

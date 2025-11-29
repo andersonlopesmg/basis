@@ -2,12 +2,14 @@
 using Basis.Store.Application.Common.Paginacao;
 using Basis.Store.Application.Common.Repositories;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar;
+using Basis.Store.Application.UseCases.Catalogo.Livros.Relatorios.PorAutor.DTOs;
 using Basis.Store.Domain.Catalogo.Entities;
 using Basis.Store.Domain.Common;
 using Basis.Store.Infrastructure.Data;
 using Basis.Store.Infrastructure.Entities.Catalogo;
 using Basis.Store.Infrastructure.Extensions;
 using Basis.Store.Infrastructure.Mappers.Catalogo;
+using Basis.Store.Infrastructure.Mappers.Catalogo.Views;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -31,6 +33,17 @@ namespace Basis.Store.Infrastructure.Repositories
         public Task AtualizarAsync(Livro livro)
         {
             throw new NotImplementedException();
+        }
+
+
+        public async Task<List<LivrosPorAutorDto>> ListarLivrosPorAutor()
+        {
+            var retorno = this.applicationDbContext.LivrosPorAutorViewModel;
+
+            return await retorno
+                .Select(x => x.ToDomain())
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<ResultadoPaginado<Livro>> ConsultarPaginado(LivroFilter livroFilter, PaginacaoDto paginacao)
