@@ -32,7 +32,7 @@
   
   <div class="mb-3">
     <label class="form-label">Preço</label>
-    <input type="number" class="form-control" formControlName="precoBase" min="0.01" step="0.01">
+    <input class="form-control" formControlName="precoBase" min="0.01" step="0.01" mask="separator.2">
     <form-input-error [control]="inserirLivroForm.get('precoBase')!"></form-input-error>
   </div>
 

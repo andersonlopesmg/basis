@@ -7,13 +7,15 @@ import { InserirLivroForm } from './models/inserir-livro-form';
 import { InserirLivroRequest } from './models/inserir-livro-request';
 import { CommonModule } from '@angular/common';
 import { patternValidator } from '../../../../../common/components/form-input-error/validators/pattern.validator';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-inserir-livro',
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormInputError
+    FormInputError,
+     NgxMaskDirective
   ],
   templateUrl: './inserir-livro.html',
   styleUrl: './inserir-livro.scss',
@@ -35,8 +37,8 @@ export class InserirLivro {
   ) {
 
     this.inserirLivroForm = this.formBuilder.nonNullable.group({
-    titulo: ['', [Validators.required, Validators.max(40)]],
-    editora: ['', [Validators.required, Validators.max(40)]],
+    titulo: ['', [Validators.required, Validators.maxLength(40)]],
+    editora: ['', [Validators.required, Validators.maxLength(40)]],
     edicao: [1, [Validators.required, Validators.min(1)]],
     anoPublicacao: [1, [Validators.required, patternValidator(/^\d{4}$/, 'Ano deve ter exatamente 4 dígitos')]],
     precoBase: [0, [Validators.required, Validators.min(0.01)]],
