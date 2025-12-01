@@ -16,7 +16,6 @@ export class FormInputError {
 
 
   get errorKeys(): string[] {
-    debugger;
     return this.control?.errors ? Object.keys(this.control.errors) : [];
   }
 
@@ -24,8 +23,6 @@ export class FormInputError {
     if (!this.control?.errors) {
       return [];
     }
-
-    debugger;
     const errors = this.control.errors;
 
     return Object.keys(errors).map(key => {

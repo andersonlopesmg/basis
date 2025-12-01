@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LivrosService } from '../../services/livros.service';
 import { Router } from '@angular/router';
@@ -39,20 +39,30 @@ export class InserirLivro {
     this.inserirLivroForm = this.formBuilder.nonNullable.group({
     titulo: ['', [Validators.required, Validators.maxLength(40)]],
     editora: ['', [Validators.required, Validators.maxLength(40)]],
-    edicao: [1, [Validators.required, Validators.min(1)]],
-    anoPublicacao: [1, [Validators.required, patternValidator(/^\d{4}$/, 'Ano deve ter exatamente 4 dígitos')]],
-    precoBase: [0, [Validators.required, Validators.min(0.01)]],
+    edicao: [null, [Validators.required, Validators.min(1)]],
+    anoPublicacao: [null, [Validators.required, patternValidator(/^\d{4}$/, 'Ano deve ter exatamente 4 dígitos')]],
+    precoBase: [null, [Validators.required, Validators.min(0.01)]],
     codigosAutores: [[] as number[]],
     codigosAssuntos: [[] as number[]],
   });
 
+  effect(() => {
+    this.inserirLivroForm.get('codigosAutores')!
+      .setValue(this.autoresIds(), { emitEvent: false });
+  });
+
+  effect(() => {
+    this.inserirLivroForm.get('codigosAssuntos')!
+      .setValue(this.assuntosIds(), { emitEvent: false });
+  });
+
   }
+  
   adicionarAutor(idInput: HTMLInputElement) {
     const id = parseInt(idInput.value);
     if (id && !this.autoresIds().includes(id)) {
-      // Atualiza o signal (imutabilidade)
       this.autoresIds.update(ids => [...ids, id]);
-      idInput.value = ''; // Limpa o input
+      idInput.value = '';
     }
   }
 
@@ -75,13 +85,11 @@ export class InserirLivro {
 
 
   salvar() {
-    debugger;
     if (this.inserirLivroForm.invalid) {
       this.inserirLivroForm.markAllAsTouched();
       return;
     }
 
-    // Validação Manual das Listas (Regra de Negócio: Deve ter ao menos 1 autor?)
     if (this.autoresIds().length === 0) {
       alert('Adicione pelo menos um autor.'); return;
     }
