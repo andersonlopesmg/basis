@@ -1,6 +1,6 @@
 ﻿using Azure.Core;
 using Basis.Store.Application.Common.Paginacao;
-using Basis.Store.Application.Common.Repositories;
+using Basis.Store.Application.Common.Repositories.Catalogo;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Relatorios.PorAutor.DTOs;
 using Basis.Store.Domain.Catalogo.Entities;
@@ -12,8 +12,9 @@ using Basis.Store.Infrastructure.Mappers.Catalogo;
 using Basis.Store.Infrastructure.Mappers.Catalogo.Views;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
-namespace Basis.Store.Infrastructure.Repositories
+namespace Basis.Store.Infrastructure.Repositories.Catalogo
 {
     public class LivroRepository : ILivroRepository
     {
@@ -25,9 +26,30 @@ namespace Basis.Store.Infrastructure.Repositories
         }
 
 
-        public Task AdicionarAsync(Livro livro)
+        public async Task<int> AdicionarAsync(Livro livro)
         {
-            throw new NotImplementedException();
+            var livroDbModel = new LivroDbModel
+            {
+                AnoPublicacao = livro.AnoPublicacao.ToString(),
+                Editora = livro.Editora,
+                Titulo = livro.Titulo.Valor,
+                Edicao = livro.Edicao,
+                PrecoBase = livro.PrecoBaseVenda.Valor,
+                LivroAssuntos = livro.Assuntos.Select(a => new LivroAssuntoDbModel
+                {
+                    AssuntoId = a.Codigo
+                }).ToList(),
+                LivroAutores = livro.Autores.Select(a => new LivroAutorDbModel
+                {
+                    AutorId = a.Codigo
+                }).ToList()
+            };
+
+
+            await this.applicationDbContext.Livro.AddAsync(livroDbModel);
+            await this.applicationDbContext.SaveChangesAsync();
+
+            return livroDbModel.Id;
         }
 
         public Task AtualizarAsync(Livro livro)
@@ -38,7 +60,7 @@ namespace Basis.Store.Infrastructure.Repositories
 
         public async Task<List<LivrosPorAutorDto>> ListarLivrosPorAutor()
         {
-            var retorno = this.applicationDbContext.LivrosPorAutorViewModel;
+            var retorno = applicationDbContext.LivrosPorAutorViewModel;
 
             return await retorno
                 .Select(x => x.ToDomain())
@@ -90,7 +112,7 @@ namespace Basis.Store.Infrastructure.Repositories
         {
             ListarLivroOrdenacaoEnum coluna = ListarLivroOrdenacaoEnum.Id;
 
-            if (!string.IsNullOrEmpty(colunaOrdenacao) && !Enum.TryParse<ListarLivroOrdenacaoEnum>(colunaOrdenacao, true, out coluna))
+            if (!string.IsNullOrEmpty(colunaOrdenacao) && !Enum.TryParse(colunaOrdenacao, true, out coluna))
             {
                 throw new BusinessValidationException($"Coluna {colunaOrdenacao} inválida para ordenação");
             }

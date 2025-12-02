@@ -12,28 +12,31 @@ namespace Basis.Store.Infrastructure.Mappers.Catalogo
                 return null!;
             }
 
-            var livro = Livro.Restaurar(
-                livroDbModel.Id,
-                livroDbModel.Titulo,
-                livroDbModel.Editora,
-                livroDbModel.Edicao,
-                livroDbModel.AnoPublicacao,
-                livroDbModel.PrecoBase);
+            var builder = new Livro.LivroBuilder()
+                .ComDadosBasicos(
+                    livroDbModel.Titulo,
+                    livroDbModel.Editora,
+                    livroDbModel.Edicao,
+                    Convert.ToInt32(livroDbModel.AnoPublicacao),
+                    livroDbModel.PrecoBase);
 
-            var autores = livroDbModel.LivroAutores?
+            
+            builder.ComId(livroDbModel.Id);
+
+            var autores = livroDbModel.LivroAutores
                 .Select(x => x.Autor.ToDomain())
-                .ToList() ?? new List<Autor>();
+                .ToList();
 
-            livro.AdicionarAutores(autores);
+            builder.ComAutores(autores);
 
 
-            var assuntos = livroDbModel.LivroAssuntos?
+            var assuntos = livroDbModel.LivroAssuntos
                 .Select(x => x.Assunto.ToDomain())
-                .ToList() ?? new List<Assunto>();
+                .ToList();
 
-            livro.AdicionarAssuntos(assuntos);
+            builder.ComAssuntos(assuntos);
 
-            return livro;
+            return builder.Restaurar();
         }
     }
 }

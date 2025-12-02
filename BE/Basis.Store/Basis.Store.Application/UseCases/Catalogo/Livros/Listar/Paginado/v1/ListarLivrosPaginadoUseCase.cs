@@ -1,5 +1,5 @@
 ﻿using Basis.Store.Application.Common.Paginacao;
-using Basis.Store.Application.Common.Repositories;
+using Basis.Store.Application.Common.Repositories.Catalogo;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar.Paginado.v1.DTOs;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Listar.Paginado.v1.Interfaces;
 
@@ -23,7 +23,7 @@ namespace Basis.Store.Application.UseCases.Catalogo.Livros.Listar.Paginado.v1
                 AnoPublicacao = livro.AnoPublicacao,
                 Edicao = livro.Edicao,
                 Editora = livro.Editora,
-                Id = livro.Id,
+                Id = livro.Id.Value,
                 PrecoBaseVenda = livro.PrecoBaseVenda,
                 Titulo = livro.Titulo.Valor,
             }).ToList();

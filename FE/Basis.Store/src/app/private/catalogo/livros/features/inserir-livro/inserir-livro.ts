@@ -42,17 +42,17 @@ export class InserirLivro {
     edicao: [null, [Validators.required, Validators.min(1)]],
     anoPublicacao: [null, [Validators.required, patternValidator(/^\d{4}$/, 'Ano deve ter exatamente 4 dígitos')]],
     precoBase: [null, [Validators.required, Validators.min(0.01)]],
-    codigosAutores: [[] as number[]],
-    codigosAssuntos: [[] as number[]],
+    autores: [[] as number[]],
+    assuntos: [[] as number[]],
   });
 
   effect(() => {
-    this.inserirLivroForm.get('codigosAutores')!
+    this.inserirLivroForm.get('autores')!
       .setValue(this.autoresIds(), { emitEvent: false });
   });
 
   effect(() => {
-    this.inserirLivroForm.get('codigosAssuntos')!
+    this.inserirLivroForm.get('assuntos')!
       .setValue(this.assuntosIds(), { emitEvent: false });
   });
 
@@ -100,6 +100,7 @@ export class InserirLivro {
   
   const request: InserirLivroRequest = this.inserirLivroForm.getRawValue();
 
+  debugger;
     this.estaProcessando.set(true);
 
     this.livrosService.inserir(request).subscribe({

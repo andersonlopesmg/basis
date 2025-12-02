@@ -5,6 +5,6 @@ export interface InserirLivroRequest {
     anoPublicacao: number;
     precoBase: number;
 
-    codigosAutores: number[];
-    codigosAssuntos: number[];
+    Autores: number[];
+    Assuntos: number[];
 }

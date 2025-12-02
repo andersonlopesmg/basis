@@ -51,6 +51,7 @@
             <th>Editora</th>
             <th style="width: 80px;">Edição</th>
             <th style="width: 140px;">Ano Publicação</th>
+            <th style="width: 140px;">Preço Base</th>
         </tr>
     </ng-template>
 
@@ -62,6 +63,7 @@
             <td>{{ livro.editora }}</td>
             <td>{{ livro.edicao }}</td>
             <td>{{ livro.anoPublicacao }}</td>
+            <td>{{ livro.precoBaseVenda | currency:'BRL'}}</td>
         </tr>
     </ng-template>
 
