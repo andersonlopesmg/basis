@@ -3,11 +3,11 @@ using Basis.Store.Application.UseCases.Catalogo.Livros.Listar;
 using Basis.Store.Application.UseCases.Catalogo.Livros.Relatorios.PorAutor.DTOs;
 using Basis.Store.Domain.Catalogo.Entities;
 
-namespace Basis.Store.Application.Common.Repositories
+namespace Basis.Store.Application.Common.Repositories.Catalogo
 {
     public interface ILivroRepository
     {
-        Task AdicionarAsync(Livro livro);
+        Task<int> AdicionarAsync(Livro livro);
 
         Task AtualizarAsync(Livro livro);
 

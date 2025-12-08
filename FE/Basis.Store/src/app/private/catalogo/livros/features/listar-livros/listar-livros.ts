@@ -6,6 +6,7 @@ import { ResultadoPaginado } from '../../../../../common/dtos/ResultadoPaginado.
 import { ListarLivrosPaginadoResponse } from './dtos/ListarLivrosPaginadoResponse';
 import { ListarLivrosPaginadoRequest } from './dtos/ListarLivrosPaginadoRequest';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-livros',
@@ -40,7 +41,8 @@ export class ListarLivros implements OnInit {
 
   constructor(
     private paginacaoService: PaginacaoService,
-    private livrosService: LivrosService) {
+    private livrosService: LivrosService,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -62,6 +64,11 @@ export class ListarLivros implements OnInit {
     this.request.Paginacao = this.paginacaoService.updateRequestFromLazyLoad(event);
     this.carregarLivros();
   }
+  
+  adicionarLivro() {
+   this.router.navigate(['/app/livros/inserir']);
+}
+
 
   baixarRelatorio() {
     this.gerandoRelatorio = true;

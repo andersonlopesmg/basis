@@ -5,11 +5,11 @@ namespace Basis.Store.Infrastructure.Mappers.Catalogo
 {
     public static class AutorDbModelMapper
     {
-        public static Autor ToDomain(this AutorDbModel autorDbModel)
+        public static Autor ToDomain(this AutorDbModel? autorDbModel)
         {
             if (autorDbModel == null)
             {
-                return null!;
+                throw new Exception("AutorDbModel não pode ser nulo");
             }
 
             var autor = Autor.Restaurar(

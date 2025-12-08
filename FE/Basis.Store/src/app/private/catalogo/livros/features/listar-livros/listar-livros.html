@@ -1,22 +1,31 @@
 <p-table 
     [value]="livros.itens" 
     [tableStyle]="{ 'min-width': '50rem' }" 
-    [size]="'small'"
+    size="small"
     [paginator]="true"
     [rows]="livros.tamanhoDaPagina" 
     [totalRecords]="livros.totalDeItens" 
     [lazy]="true" 
     [rowsPerPageOptions]="[5,10,20]"
     (onLazyLoad)="onLazyLoad($event)"
-   stripedRows >
-   <ng-template pTemplate="caption">
+    stripedRows >
+
+    <!-- HEADER / CAPTION -->
+    <ng-template pTemplate="caption">
         <div class="d-flex justify-content-between align-items-center">
-            
+
             <h5 class="m-0 text-primary">
-                <i class="pi pi-list me-2"></i> Listagem de Livros
+                <i class="pi pi-book me-2"></i> Listagem de Livros
             </h5>
 
-            <div>
+            <div class="d-flex align-items-center gap-2">
+                <button 
+                    class="btn btn-success btn-sm"
+                    (click)="adicionarLivro()">
+                    <i class="pi pi-plus me-1"></i>
+                    Novo Livro
+                </button>
+
                 <button 
                     class="btn btn-primary btn-sm"
                     (click)="baixarRelatorio()" 
@@ -27,27 +36,35 @@
                     } @else {
                         <i class="pi pi-file-pdf me-1"></i>
                     }
-                    {{ gerandoRelatorio ? 'Gerando PDF...' : 'Baixar Relatório' }}
+                    {{ gerandoRelatorio ? 'Gerando PDF...' : 'Relatório' }}
                 </button>
+
             </div>
         </div>
     </ng-template>
-    <ng-template #header>
+
+    <!-- HEADER DA TABELA -->
+    <ng-template pTemplate="header">
         <tr>
-            <th>Codigo</th>
+            <th style="width: 80px;">Código</th>
             <th>Título</th>
             <th>Editora</th>
-            <th>Edição</th>
-            <th>Ano Publicação</th>
+            <th style="width: 80px;">Edição</th>
+            <th style="width: 140px;">Ano Publicação</th>
+            <th style="width: 140px;">Preço Base</th>
         </tr>
     </ng-template>
-    <ng-template #body let-livro>
+
+    <!-- BODY -->
+    <ng-template pTemplate="body" let-livro>
         <tr>
             <td>{{ livro.id }}</td>
             <td>{{ livro.titulo }}</td>
             <td>{{ livro.editora }}</td>
             <td>{{ livro.edicao }}</td>
             <td>{{ livro.anoPublicacao }}</td>
+            <td>{{ livro.precoBaseVenda | currency:'BRL'}}</td>
         </tr>
     </ng-template>
+
 </p-table>

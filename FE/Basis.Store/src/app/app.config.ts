@@ -7,9 +7,18 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { provideHttpClient } from '@angular/common/http';
+import { provideNgxMask, NgxMaskConfig } from 'ngx-mask';
+
+const maskConfig: Partial<NgxMaskConfig> = {
+  thousandSeparator: '.',
+  decimalMarker: ',',
+  prefix: 'R$ '
+};
+
 
 
 export const appConfig: ApplicationConfig = {
+
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -17,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     
     provideAnimationsAsync(),
+    provideNgxMask(maskConfig),
     providePrimeNG({
       theme:{
         preset: Tema,

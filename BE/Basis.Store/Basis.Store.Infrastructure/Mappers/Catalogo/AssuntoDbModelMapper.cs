@@ -5,11 +5,11 @@ namespace Basis.Store.Infrastructure.Mappers.Catalogo
 {
     public static class AssuntoDbModelMapper
     {
-        public static Assunto ToDomain(this AssuntoDbModel assuntoDbModel)
+        public static Assunto ToDomain(this AssuntoDbModel? assuntoDbModel)
         {
             if (assuntoDbModel == null)
             {
-                return null!;
+                throw new Exception("AssuntoDbModel não pode ser nulo");
             }
 
             var assunto = Assunto.Restaurar(

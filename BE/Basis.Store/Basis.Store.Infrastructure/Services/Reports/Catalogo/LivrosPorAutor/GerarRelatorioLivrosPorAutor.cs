@@ -3,11 +3,6 @@ using Basis.Store.Application.UseCases.Catalogo.Livros.Relatorios.PorAutor.DTOs;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Basis.Store.Infrastructure.Services.Reports.Catalogo.LivrosPorAutor
 {
@@ -122,7 +117,7 @@ namespace Basis.Store.Infrastructure.Services.Reports.Catalogo.LivrosPorAutor
         {
             return container
                 .BorderBottom(1)
-                .BorderColor(Colors.Grey.Lighten4) // Linha suave entre livros
+                .BorderColor(Colors.Grey.Lighten4)
                 .PaddingVertical(5)
                 .PaddingHorizontal(5)
                 .AlignMiddle();

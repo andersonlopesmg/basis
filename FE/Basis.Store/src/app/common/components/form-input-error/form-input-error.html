@@ -1,0 +1,7 @@
+@if (control && control.touched && control.invalid) {
+  @for (message of errorMessages; track message) {
+    <div class="text-danger small">
+      {{ message }}
+    </div>
+  }
+}

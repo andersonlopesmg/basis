@@ -6,6 +6,8 @@ import { ResultadoPaginado } from '../../../../common/dtos/ResultadoPaginado.dto
 import { ListarLivrosPaginadoResponse } from '../features/listar-livros/dtos/ListarLivrosPaginadoResponse';
 import { environment } from '../../../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { InserirLivro } from '../features/inserir-livro/inserir-livro';
+import { InserirLivroRequest } from '../features/inserir-livro/models/inserir-livro-request';
 
 @Injectable({
   providedIn: 'root',
@@ -17,15 +19,20 @@ export class LivrosService {
   constructor(
     private queryBuilder: QueryBuiderService,
     private http: HttpClient) { }
+  
 
 
-  listarPaginado(request: ListarLivrosPaginadoRequest){
+  inserir(request: InserirLivroRequest):  Observable<number> {
+    return this.http.post<number>(this.apiUrl, request);
+  }
+
+  listarPaginado(request: ListarLivrosPaginadoRequest) {
     const params = this.queryBuilder.buildParams(request);
     return this.http.get<ResultadoPaginado<ListarLivrosPaginadoResponse>>(`${this.apiUrl}`, { params });
   }
 
   baixarRelatorioLivrosPorAutor(): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/relatorios/livrosporautor` , {
+    return this.http.get(`${this.apiUrl}/relatorios/livrosporautor`, {
       responseType: 'blob'
     });
   }
